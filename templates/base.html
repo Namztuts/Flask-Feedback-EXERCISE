@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1.0"
+      />
+      <link
+         rel="stylesheet"
+         href="/static/styles.css"
+      />
+      <!-- BOOTSTRAP -->
+      <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+         crossorigin="anonymous"
+      />
+      <!-- END BOOTSTRAP -->
+      <title>{% block title %}{% endblock %}</title>
+   </head>
+   <body>
+      <nav class="navbars">
+         {% if session['username'] %}
+         <a href="/users/{{session['username']}}">User Info</a>
+         <form
+            action="/logout"
+            method="POST"
+         >
+            <button
+               type="submit"
+               class="btn btn-danger mt-2"
+            >
+               Logout
+            </button>
+         </form>
+         {% else %}
+         <a href="/register">Register</a>
+         <a href="/login">Login</a>
+         {% endif %}
+      </nav>
+      <main id="contents">
+         {% for category, message in get_flashed_messages(with_categories=True)
+         %}
+
+         <div class="alert alert-{{category}}">{{message}}</div>
+         {% endfor %}
+         <!-- end flash message handling -->
+         {% block content %}{% endblock %}
+      </main>
+   </body>
+</html>

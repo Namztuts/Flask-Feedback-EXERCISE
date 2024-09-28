@@ -1,0 +1,53 @@
+<!-- extends -->
+{% extends 'base.html' %}
+<!-- block title -->
+{% block title %}User Info{% endblock %}
+<!-- block content start-->
+{% block content %}
+<div class="d-flex justify-content-left align-items-center">
+   <h1>User Info | {{user.username}}</h1>
+   <a
+      class="btn btn-sm btn-danger ml-4"
+      href="/users/{{user.username}}/delete"
+      >Delete User</a
+   >
+</div>
+<div class="card my-2">
+   <div class="card-body">
+      <p><strong>First Name:</strong> {{user.first_name}}</p>
+      <p><strong>Last Name:</strong> {{user.last_name}}</p>
+      <p><strong>Username:</strong> {{user.username}}</p>
+      <p><strong>Email:</strong> {{user.email}}</p>
+   </div>
+</div>
+<div class="d-flex justify-content-left align-items-center">
+   <h2>{{user.username}} | Feedback</h2>
+   <a
+      class="btn btn-sm btn-success ml-4"
+      href="/users/{{user.username}}/feedback/add"
+      >New Feedback</a
+   >
+</div>
+<div class="feedback-container">
+   {% for feed in feedback %}
+   <div class="card my-3">
+      <div class="card-body">
+         <h5 class="card-title">{{feed.title}}</h5>
+         <p class="card-text">{{feed.content}}</p>
+         <div class="d-flex justify-content-left">
+            <a
+               href="/feedback/{{feed.id}}/update"
+               class="btn btn-sm btn-outline-primary me-2"
+               >Edit</a
+            >
+            <a
+               href="/feedback/{{feed.id}}/delete"
+               class="btn btn-sm btn-outline-danger ml-2"
+               >Delete</a
+            >
+         </div>
+      </div>
+   </div>
+   {% endfor %}
+</div>
+{% endblock %}
